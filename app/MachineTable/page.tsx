@@ -44,8 +44,8 @@ const Machine: React.FC<MachineProps> = ({ imgSrc, drop }): JSX.Element => {
       </div>
       <div
         className={`w-full ${
-          full ? "h-auto" : "h-40"
-        } flex flex-col justify-start space-y-2 overflow-y-hidden px-2 bg-slate-200`}
+          full ? "h-auto" : "h-40 overflow-y-hidden "
+        } flex flex-col justify-start space-y-2 px-2 bg-slate-200`}
       >
         {Object.entries(drop).map(([key, value]) => (
           <React.Fragment key={key}>
@@ -53,7 +53,7 @@ const Machine: React.FC<MachineProps> = ({ imgSrc, drop }): JSX.Element => {
               <span className="font-bold">{key}:</span>
               <span>{value}</span>
             </div>
-            <div className="w-full h-px bg-gray-600 my-4"></div>
+            <div className="w-full h-px bg-gray-600 my-1"></div>
           </React.Fragment>
         ))}
       </div>

@@ -3,6 +3,8 @@ import React from "react";
 import Machine from "./MachineTable/page";
 import Details from "./MachineTable/details";
 import Speedometer from "./meter/page";
+import Graph from "./Highcharts/page";
+import Data from "./Highcharts/data";
 import Link from "next/link";
 
 export default function Home() {
@@ -12,6 +14,7 @@ export default function Home() {
         <Details />
       </div>
       <Speedometer value={0.5} />
+      <Data />
     </div>
   );
 }
