@@ -82,8 +82,8 @@ const Data = ({ width, height }) => {
                 />
               </div>
               <div className="flex flex-row items-center lg:ml-auto space-x-2">
-                <div className="h-auto w-px bg-slate-400 hidden sm:block lg:block"></div>
-                <select className="text-xs lg:text-sm">
+                <div className="h-full w-px bg-slate-400 hidden sm:block lg:block"></div>
+                <select className="text-xs lg:text-sm bg-transparent">
                   <option value="W">W</option>
                 </select>
                 <div className="h-full w-px bg-slate-400 hidden sm:block lg:block"></div>
