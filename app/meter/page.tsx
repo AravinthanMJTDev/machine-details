@@ -1,19 +1,33 @@
 "use client";
 import React from "react";
 import { CircularProgress, CardBody, Card } from "@nextui-org/react";
+// import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+// import "react-circular-progressbar/dist/styles.css";
 import GaugeChart from "react-gauge-chart";
 
-const Speedometer = ({ value = 0.75 }) => {
+interface speed {
+  value?: number;
+  width: number;
+  height: number;
+}
+
+const Speedometer: React.FC<speed> = ({ value = 0.75, width, height }) => {
+  const scale = Math.min(width / 1024, height / 1024);
   return (
-    <div className="w-64 h-full flex flex-col justify-center items-center bg-black text-yellow-50 m-10">
+    <div
+      className="w-50 h-50 flex flex-col justify-center items-center bg-black text-yellow-50 m-10"
+      style={{ transform: `scale(${scale > 1 ? 1 : scale})` }}
+    >
       <label>OEE</label>
       <h4 className="font-extrabold text-5xl text-balance">{value * 100}%</h4>
-      <GaugeChart
-        id="gauge-chart"
-        nrOfLevels={10}
-        percent={value}
-        textColor="white"
-      />
+      <div className="flex flex-row justify-center items-center">
+        <GaugeChart
+          id="gauge-chart"
+          nrOfLevels={10}
+          percent={value}
+          textColor="white"
+        />
+      </div>
 
       <div className="w-full flex flex-row justify-between items-center mx-2 p-2">
         <CircularProgress

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { ChevronsDown, Command } from "lucide-react";
+import { ChevronsDown, Command, ScanSearch } from "lucide-react";
 
 interface MachineProps {
   imgSrc: string;
@@ -21,12 +21,12 @@ const Machine: React.FC<MachineProps> = ({ imgSrc, drop }): JSX.Element => {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center border border-5 p-2 border-gray-400 space-y-2">
-      <div className="w-full h-10 flex flex-row justify-between items-center">
+    <div className="w-full h-auto flex flex-col justify-center items-center border border-8 p-2 border-gray-400 space-y-2">
+      <div className="w-full h- flex flex-row justify-between items-center border border-1 border-slate-400 p-2">
         <label className="font-bold">Cogeneration</label>
         <div className="flex items-center">
           <div className="h-full w-px bg-gray-700 mx-4"></div>
-          <Command />
+          <ScanSearch />
           <div className="h-full w-px bg-gray-700 mx-4"></div>
           <ChevronsDown
             className="hover:scale-150 cursor-pointer"
@@ -45,7 +45,7 @@ const Machine: React.FC<MachineProps> = ({ imgSrc, drop }): JSX.Element => {
       <div
         className={`w-full ${
           full ? "h-auto" : "h-40 overflow-y-hidden "
-        } flex flex-col justify-start space-y-2 px-2 bg-slate-200`}
+        } flex flex-col justify-start space-y-2 px-2 bg-slate-400`}
       >
         {Object.entries(drop).map(([key, value]) => (
           <React.Fragment key={key}>

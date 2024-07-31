@@ -9,12 +9,14 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="mx-auto w-full flex flex-col justify-center items-center space-y-2">
-      <div className="mx-auto w-2/4  bg-gray-100 p-2 border border-gray-400 border-5">
-        <Details />
+    <div className="mx-auto w-full min-h-auto flex flex-col justify-center items-center space-y-2">
+      <div className="mx-auto w-2/4 h-50 m-5">
+        <Details width={1000} height={1000} />
       </div>
-      <Speedometer value={0.5} />
-      <Data />
+      <Speedometer width={600} height={600} value={0.7} />
+      <div className="w-full h-auto border m-5">
+        <Data width={800} height={800} />
+      </div>
     </div>
   );
 }

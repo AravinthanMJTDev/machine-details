@@ -17,10 +17,11 @@ const detailObj = [
   },
 ];
 
-const Details = () => {
+const Details = ({ width, height }) => {
   console.log("image", detailObj[0].image);
+  const scale = Math.min(width / 1024, height / 1024);
   return (
-    <div>
+    <div style={{ transform: `scale(${scale > 1 ? 1 : scale})` }}>
       {detailObj.map((item, index) => (
         <Machine key={index} imgSrc={item.image} drop={item.dropDetails} />
       ))}

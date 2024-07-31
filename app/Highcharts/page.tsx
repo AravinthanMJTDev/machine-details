@@ -54,11 +54,7 @@ const Graph = ({ Machine1, Machine2, Machine3, Date }: MachineProps) => {
     ],
   };
 
-  return (
-    <div>
-      <HighchartsReact highcharts={Highcharts} options={options} />
-    </div>
-  );
+  return <HighchartsReact highcharts={Highcharts} options={options} />;
 };
 
 export default Graph;
