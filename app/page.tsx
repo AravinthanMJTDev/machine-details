@@ -13,7 +13,7 @@ export default function Home() {
       <div className="mx-auto w-2/4 h-50 m-5">
         <Details width={1000} height={1000} />
       </div>
-      <Speedometer width={600} height={600} value={0.7} />
+      <Speedometer width={1000} height={1000} value={0.7} />
       <div className="w-full h-auto border m-5">
         <Data width={800} height={800} />
       </div>

@@ -23,7 +23,8 @@
     "react-datepicker": "^7.3.0",
     "react-dom": "^18.3.1",
     "react-gauge": "^0.0.5",
-    "react-gauge-chart": "^0.5.1"
+    "react-gauge-chart": "^0.5.1",
+    "react-google-charts": "^4.0.1"
   },
   "devDependencies": {
     "@types/node": "^20.14.13",

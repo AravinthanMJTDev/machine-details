@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -15,12 +16,19 @@ const Graph = ({ Machine1, Machine2, Machine3, Date }: MachineProps) => {
     moment(dateString, "YYYY-MM-DD").format("MMM DD")
   );
 
+  // Highcharts configuration options
   const options = {
     chart: {
       type: "column",
-      zoomType: "xy",
-      panning: true,
-      panKey: "space",
+      zoomType: "xy", // Allows zooming in both directions
+      panning: true, // Enable panning
+      panKey: "shift", // Use shift key to pan (or space as previously used)
+      events: {
+        load() {
+          // Event for handling touchpad zoom gestures
+          // Note: Default zoom behavior should work without extra configuration
+        },
+      },
     },
     title: {
       text: "",
@@ -33,7 +41,7 @@ const Graph = ({ Machine1, Machine2, Machine3, Date }: MachineProps) => {
       endOnTick: true,
       tickAmount: 10,
       scrollbar: {
-        enabled: true,
+        enabled: true, // Enable x-axis scrollbar
       },
     },
     yAxis: {
@@ -41,11 +49,11 @@ const Graph = ({ Machine1, Machine2, Machine3, Date }: MachineProps) => {
         text: "Values",
       },
       scrollbar: {
-        enabled: true,
+        enabled: true, // Enable y-axis scrollbar
       },
     },
     credits: {
-      enabled: false,
+      enabled: false, // Disable credits
     },
     plotOptions: {
       column: {
