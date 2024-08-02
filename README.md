@@ -1,7 +1,7 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 #images
-![Alt text] (/images/4.machine_details (1).png)
+![Alt text](/images/4.machine_details (1).png)
 
 ## Getting Started
 
