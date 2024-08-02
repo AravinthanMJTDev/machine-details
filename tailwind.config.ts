@@ -13,8 +13,15 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      scale: {
+        "200": "2",
+        "300": "3",
+        "400": "4",
+        "500": "5",
+        "600": "6",
+        "1000": "5",
+      },
       screens: {
-        // Custom breakpoints (uncomment and modify as needed)
         sm: "40px",
         md: "768px",
         lg: "1024px",
@@ -25,4 +32,5 @@ const config: Config = {
   },
   plugins: [],
 };
+
 export default config;

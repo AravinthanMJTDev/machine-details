@@ -13,9 +13,10 @@ interface speed {
 
 const Speedometer: React.FC<speed> = ({ value = 0.75, width, height }) => {
   const scale = Math.min(width / 1024, height / 1024);
+
   return (
     <div
-      className="w-50 h-50 flex flex-col justify-center items-center bg-black text-yellow-50 m-10"
+      className={`w-50 h-50 flex flex-col justify-center items-center bg-black text-yellow-50 m-10`}
       style={{ transform: `scale(${scale > 1 ? 1 : scale})` }}
     >
       <label>OEE</label>
@@ -26,6 +27,7 @@ const Speedometer: React.FC<speed> = ({ value = 0.75, width, height }) => {
           nrOfLevels={10}
           percent={value}
           textColor="white"
+          hideText={true}
         />
       </div>
 
@@ -33,7 +35,7 @@ const Speedometer: React.FC<speed> = ({ value = 0.75, width, height }) => {
         <CircularProgress
           label="energy"
           classNames={{
-            svg: "w-10 h-10 drop-shadow-md align-center",
+            svg: "w-14 h-14 drop-shadow-md align-center",
             indicator: "stroke-green-500",
             track: "stroke-white/10",
             value: "text-md font-semibold text-white",
@@ -45,7 +47,7 @@ const Speedometer: React.FC<speed> = ({ value = 0.75, width, height }) => {
         <CircularProgress
           label="energy"
           classNames={{
-            svg: "w-10 h-10 drop-shadow-md items-center",
+            svg: "w-14 h-14 drop-shadow-md items-center",
             indicator: "stroke-green-500",
             track: "stroke-white/10",
             value: "text-md font-semibold text-white",
@@ -58,7 +60,7 @@ const Speedometer: React.FC<speed> = ({ value = 0.75, width, height }) => {
         <CircularProgress
           label="energy"
           classNames={{
-            svg: "w-10 h-10 drop-shadow-md items-center",
+            svg: "w-14 h-14 drop-shadow-md items-center",
             indicator: "stroke-green-500",
             track: "stroke-white/10",
             value: "text-md font-semibold text-white",

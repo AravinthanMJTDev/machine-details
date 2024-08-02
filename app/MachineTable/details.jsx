@@ -1,3 +1,4 @@
+"use client";
 import Machine from "./page";
 import React from "react";
 
@@ -19,11 +20,28 @@ const detailObj = [
 
 const Details = ({ width, height }) => {
   console.log("image", detailObj[0].image);
-  const scale = Math.min(width / 1024, height / 1024);
+  const scale = Math.min(
+    width / window.innerWidth,
+    height / window.innerHeight
+  );
+  const hover = Math.floor(window.innerWidth / width);
+  console.log(hover);
+
   return (
-    <div style={{ transform: `scale(${scale > 1 ? 1 : scale})` }}>
+    <div
+      className={` z-50`}
+      style={{
+        transform: `scale(${scale > 1 ? 1 : scale})`,
+      }}
+    >
       {detailObj.map((item, index) => (
-        <Machine key={index} imgSrc={item.image} drop={item.dropDetails} />
+        <Machine
+          key={index}
+          hoverScale={hover}
+          scale={scale}
+          imgSrc={item.image}
+          drop={item.dropDetails}
+        />
       ))}
     </div>
   );

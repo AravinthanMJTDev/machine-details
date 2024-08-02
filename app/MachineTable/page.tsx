@@ -1,10 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { ChevronsDown, Command, ScanSearch } from "lucide-react";
+import { ChevronsDown, ScanSearch, X } from "lucide-react";
 
 interface MachineProps {
   imgSrc: string;
+  hoverScale: number;
+  scale: number;
   drop: {
     code: string;
     DateOfInstallation: string;
@@ -13,25 +15,43 @@ interface MachineProps {
   };
 }
 
-const Machine: React.FC<MachineProps> = ({ imgSrc, drop }): JSX.Element => {
-  const [full, setFull] = useState(false);
+const Machine: React.FC<MachineProps> = ({
+  imgSrc,
+  drop,
+  hoverScale,
+  scale,
+}): JSX.Element => {
+  const [expanded, setExpanded] = useState(false);
+  const [hover, setHover] = useState(false);
 
-  const handleSizing = () => {
-    setFull((prev) => !prev);
+  console.log(hover);
+
+  const toggleExpanded = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setExpanded((prev) => !prev);
   };
 
   return (
-    <div className="w-full h-auto flex flex-col justify-center items-center border border-8 p-2 border-gray-400 space-y-2">
-      <div className="w-full h- flex flex-row justify-between items-center border border-1 border-slate-400 p-2">
+    <div
+      className={`w-auto h-auto flex flex-col justify-center items-center  border border-8 p-2 ${
+        expanded ? "scale-110 border-slate-600 z-50" : "border-gray-400"
+      } space-y-2 transition-transform duration-300 ease-in-out`}
+      onClick={() => setHover(!hover)}
+      // onMouseLeave={() => setHover(false)}
+      style={{
+        transform: `scale(${hover ? hoverScale : scale})`,
+      }}
+    >
+      <div className="w-full flex flex-row justify-between items-center border border-1 border-slate-400 p-2">
         <label className="font-bold">Cogeneration</label>
         <div className="flex items-center">
           <div className="h-full w-px bg-gray-700 mx-4"></div>
-          <ScanSearch />
+          {expanded ? (
+            <X className="cursor-pointer" onClick={toggleExpanded} />
+          ) : (
+            <ScanSearch className="cursor-pointer" onClick={toggleExpanded} />
+          )}
           <div className="h-full w-px bg-gray-700 mx-4"></div>
-          <ChevronsDown
-            className="hover:scale-150 cursor-pointer"
-            onClick={handleSizing}
-          />
         </div>
       </div>
       <div className="relative w-full h-64">
@@ -44,12 +64,12 @@ const Machine: React.FC<MachineProps> = ({ imgSrc, drop }): JSX.Element => {
       </div>
       <div
         className={`w-full ${
-          full ? "h-auto" : "h-40 overflow-y-hidden "
-        } flex flex-col justify-start space-y-2 px-2 bg-slate-400`}
+          expanded ? "h-auto" : "h-40 overflow-y-hidden "
+        } flex flex-col justify-start space-y-2 px-2 bg-slate-400  transition-transform duration-500 ease-in-out`}
       >
         {Object.entries(drop).map(([key, value]) => (
           <React.Fragment key={key}>
-            <div className="flex flex-row justify-between p-2">
+            <div className="flex flex-row justify-between p-2 transition-transform duration-300 ease-in-out">
               <span className="font-bold">{key}:</span>
               <span>{value}</span>
             </div>
@@ -58,6 +78,7 @@ const Machine: React.FC<MachineProps> = ({ imgSrc, drop }): JSX.Element => {
         ))}
       </div>
     </div>
+    // </div>
   );
 };
 

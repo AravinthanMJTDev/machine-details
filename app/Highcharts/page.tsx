@@ -11,7 +11,12 @@ interface MachineProps {
   Date: string[];
 }
 
-const Graph = ({ Machine1, Machine2, Machine3, Date }: MachineProps) => {
+const GraphFunction = ({
+  Machine1,
+  Machine2,
+  Machine3,
+  Date,
+}: MachineProps) => {
   const formattedDates = Date.map((dateString) =>
     moment(dateString, "YYYY-MM-DD").format("MMM DD")
   );
@@ -22,13 +27,7 @@ const Graph = ({ Machine1, Machine2, Machine3, Date }: MachineProps) => {
       type: "column",
       zoomType: "xy", // Allows zooming in both directions
       panning: true, // Enable panning
-      panKey: "shift", // Use shift key to pan (or space as previously used)
-      events: {
-        load() {
-          // Event for handling touchpad zoom gestures
-          // Note: Default zoom behavior should work without extra configuration
-        },
-      },
+      panKey: "shift", // Use shift key to pan
     },
     title: {
       text: "",
@@ -87,4 +86,4 @@ const Graph = ({ Machine1, Machine2, Machine3, Date }: MachineProps) => {
   return <HighchartsReact highcharts={Highcharts} options={options} />;
 };
 
-export default Graph;
+export default GraphFunction;
