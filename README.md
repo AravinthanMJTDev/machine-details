@@ -1,9 +1,9 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 #images
-![Machine Details](</images/4.machine_details%20(1).png>)
-![Estimation Consumed](images/5.estimation_consumed-saved_kwh.png)
-![OEE](<images/6.oee%20(1).png>)
+![Machine Details](<app/images/4.machine_details%20(1).png>)
+![Estimation Consumed](app/images/5.estimation_consumed-saved_kwh.png)
+![OEE](<app/images/6.oee%20(1).png>)
 
 ## Getting Started
 
