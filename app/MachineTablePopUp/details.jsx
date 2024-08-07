@@ -85,7 +85,7 @@ const detailObj = [
   },
 ];
 
-const Details = ({ width, height }) => {
+const DetailsPopUp = ({ width, height }) => {
   const [machines, setMachines] = useState(
     detailObj.map((item, index) => ({
       ...item,
@@ -120,4 +120,4 @@ const Details = ({ width, height }) => {
     </div>
   );
 };
-export default Details;
+export default DetailsPopUp;

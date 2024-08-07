@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import moment from "moment";
 import GraphFunction from "./page";
 import DatePicker from "react-datepicker";
@@ -54,97 +54,95 @@ const Graph = ({ width, height }) => {
   };
 
   const [expanded, setExpanded] = useState(false);
-  const [hover, setHover] = useState(false);
+  const [onClick, setonClick] = useState(false);
+
   const onClickScale =
     Math.floor(1024 / width) > 1 ? 1 : Math.floor(1024 / width);
-  console.log("h ", onClickScale);
 
   const toggleExpanded = (e: React.MouseEvent) => {
     e.stopPropagation();
-    setHover((prev) => !prev);
+    setonClick((prev) => !prev);
   };
 
-  const scale = Math.min(width / window.innerWidth, height / window.innerWidth);
+  const scale = Math.min(width / 1024, height / 1024);
 
-  console.log(window.innerWidth);
+  const containerRef = useRef(null);
+
+  const handleClickOutside = useCallback((event: React.MouseEvent) => {
+    event.stopPropagation();
+    if (containerRef.current && !containerRef.current.contains(event.target)) {
+      setonClick(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [handleClickOutside]);
 
   return (
     <div
-      className={`w-full h-full overflow-hidden transition-transform duration-400 ease-in-out`}
-      onClick={() => setHover((prev) => !prev)}
+      ref={containerRef}
+      className={`w-full h-full overflow-hidden transition-transform duration-500 ease-in-out`}
+      onClick={() => setonClick((prev) => !prev)}
       style={{
-        transform: `scale(${hover ? onClickScale : scale})`,
+        transform: `scale(${onClick ? onClickScale : scale})`,
       }}
     >
-      <div className="w-100 h-100 mx-auto ">
-        <div className="w-full h-full transform  border border-4 border-slate-500 p-3 mx-auto ">
+      <div className="w-full h-auto mx-auto ">
+        <div className="w-full h-auto transform  border border-4 border-slate-500 p-3 mx-auto sm:flex sm:flex-col sm:justify-center sm:items-center sm:space-y-2 ">
           <div
-            className="w-full h-full flex flex-col lg:flex-row lg:justify-between lg:items-center border border-slate-300 px-2 "
+            className="w-full h-auto lg:flex lg:flex-row lg:justify-between lg:items-center sm:flex sm:flex-col sm:justify-center sm:items-center sm:space-y-2 md:flex md:flex-row md:justify-between md:items-center md:space-y-0 p-1 border border-1 border-slate-500"
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation();
             }}
           >
-            <label className="font-bold text-sm lg:text-base">
-              Operational Chart
-            </label>
-            <div className="flex flex-col lg:flex-row lg:space-x-2 space-y-2 lg:space-y-0 lg:ml-auto">
-              <div className="flex flex-col sm:flex-row sm:space-x-4 lg:ml-auto">
-                <DatePicker
-                  selected={startDate}
-                  onChange={(date: Date | null) => setStartDate(date)}
-                  dateFormat="MMMM d, yyyy"
-                  className="border border-blue-500 rounded-lg p-2 text-xs lg:text-sm"
-                />
-                <div className="h-full w-px bg-slate-400 hidden sm:block lg:block"></div>
-                <DatePicker
-                  selected={endDate}
-                  onChange={(date: Date | null) => setEndDate(date)}
-                  dateFormat="MMMM d, yyyy"
-                  className="border border-blue-500 rounded-lg p-2 text-xs lg:text-sm"
-                />
-              </div>
-              <div className="flex flex-row items-center lg:ml-auto space-x-2">
-                <div className="h-full w-px bg-slate-400 hidden sm:block lg:block"></div>
-                <select className="text-xs lg:text-sm bg-transparent">
-                  <option value="W">W</option>
-                </select>
-                <div className="h-full w-px bg-slate-400 hidden sm:block lg:block"></div>
-                {expanded ? (
-                  <X className="cursor-pointer" onClick={toggleExpanded} />
-                ) : (
-                  <ScanSearch
-                    className="cursor-pointer"
-                    onClick={toggleExpanded}
+            <div className="w-auto h-auto flex flex-row justify-center items-center">
+              <label className="font-bold text-sm lg:text-base">
+                Operational Chart
+              </label>
+            </div>
+            <div className="w-auto h-full lg:flex lg:flex-row lg:space-x-2 lg:space-y-0 md:flex md:flex-row  md:justify-start md:space-x-3 md:space-y-0 sm:space-y-2 sm:flex sm:flex-col sm:justify-center">
+              <div className="flex flex-col sm:flex-col sm:space-y-2 md:flex md:flex-row md:justify-center md:items-center md:space-x-2 md:space-y-0 lg:space-x-2 lg:space-y-0">
+                <div className="flex flex-row justify-center items-center m-0">
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date: Date | null) => setStartDate(date)}
+                    dateFormat="MMMM d, yyyy"
+                    className="border border-gray-400 rounded-md p-2 text-sm"
                   />
-                )}
-                <div className="h-full w-px bg-slate-400 hidden sm:block lg:block"></div>
-                <RefreshCcw
-                  className="text-xs lg:text-sm hover:cursor-pointer"
-                  onClick={handleReset}
-                />
+                </div>
+                <div className="flex flex-row justify-center items-center m-0">
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date: Date | null) => setEndDate(date)}
+                    dateFormat="MMMM d, yyyy"
+                    className="border border-gray-400 rounded-md p-2 text-sm"
+                  />
+                </div>
               </div>
+              <button
+                className="bg-red-500 text-white px-2 py-1 rounded-md flex items-center justify-center sm:mt-2 md:mt-0"
+                onClick={handleReset}
+              >
+                <RefreshCcw size={16} className="mr-1" />
+                Reset
+              </button>
+            </div>
+            <div className="flex flex-row justify-center items-center">
+              <Menu
+                size={24}
+                onClick={toggleExpanded}
+                className="cursor-pointer"
+              />
             </div>
           </div>
-          {/* <div className="flex flex-row flex-wrap justify-end m-4">
-            <button
-              onClick={handleReset}
-              className="p-2 border rounded-lg bg-slate-500 text-white text-xs lg:text-sm"
-            >
-              Reset Button
-            </button>
-            <div className="h-full w-px mx-4 bg-slate-400"></div>
-            <Menu className="text-xs lg:text-sm my-auto" />
-          </div> */}
-          <div className="flex flex-row flex-wrap justify-center m-4">
-            <span>
-              <label className="font-semibold">
-                {startDate && endDate
-                  ? startDate.toDateString() + " - " + endDate.toDateString()
-                  : " "}
-              </label>
-            </span>
-          </div>
-          <div className="border border-blue-300 ">
+          <div
+            className="w-full h-auto mt-2"
+            onClick={(e) => e.stopPropagation()}
+          >
             <GraphFunction
               Machine1={machine1Graph}
               Machine2={machine2Graph}

@@ -8,7 +8,8 @@ import React, {
 } from "react";
 import Image from "next/image";
 import { X, ScanSearch } from "lucide-react";
-import debounce from "lodash.debounce"; // Install lodash.debounce
+import debounce from "lodash.debounce";
+import Modal from "./modal"; // Import the modal component
 
 interface MachineProps {
   imgSrc: string;
@@ -28,6 +29,7 @@ interface MachineProps {
 const Machine: React.FC<MachineProps> = React.memo(
   ({ imgSrc, drop, width, isExpanded, onExpand }) => {
     const containerRef = useRef<HTMLDivElement>(null);
+    const modalContainerRef = useRef<HTMLDivElement>(null);
     const [containerWidth, setContainerWidth] = useState(width);
 
     const handleResize = useCallback(
@@ -94,7 +96,7 @@ const Machine: React.FC<MachineProps> = React.memo(
         className={`w-full max-w-full flex flex-col justify-center items-center border ${
           isExpanded ? "border-slate-600" : "border-gray-400"
         } p-2 space-y-2 transition-all duration-700 ease-in-out overflow-hidden`}
-        style={{ width: containerWidth }}
+        style={{ width: width }}
         onClick={handleClick}
       >
         <div className="w-full flex flex-row justify-between items-center border border-slate-400 p-2">
@@ -117,21 +119,30 @@ const Machine: React.FC<MachineProps> = React.memo(
             style={{ objectFit: "contain" }}
           />
         </div>
-        <div
-          className={`w-full flex flex-col justify-start space-y-2 px-2 bg-slate-400 transition-all ${
-            isExpanded ? "max-h-[1000px]" : "max-h-[160px] overflow-hidden"
-          } duration-1000 ease-in-out`}
-        >
-          {Object.entries(drop).map(([key, value]) => (
-            <React.Fragment key={key}>
-              <div className="md:flex md:flex-row justify-between sm:flex sm:flex-col sm:items-center p-2">
-                <span className="font-bold">{key}:</span>
-                <span>{value}</span>
-              </div>
-              <div className="w-full h-px bg-gray-600 my-1"></div>
-            </React.Fragment>
-          ))}
-        </div>
+
+        <Modal ref={modalContainerRef} isOpen={isExpanded} onClose={onExpand}>
+          <div className="flex flex-col justify-center space-y-2">
+            <div className="relative w-full h-64">
+              <Image
+                src={imgSrc}
+                alt="Machine"
+                fill
+                style={{ objectFit: "contain" }}
+              />
+            </div>
+            <div className="flex flex-col justify-start space-y-2 px-2 bg-slate-400 transition-all duration-1000 ease-in-out">
+              {Object.entries(drop).map(([key, value]) => (
+                <React.Fragment key={key}>
+                  <div className="md:flex md:flex-row justify-between sm:flex sm:flex-col sm:items-center p-2">
+                    <span className="font-bold">{key}:</span>
+                    <span>{value}</span>
+                  </div>
+                  <div className="w-full h-px bg-gray-600 my-1"></div>
+                </React.Fragment>
+              ))}
+            </div>
+          </div>
+        </Modal>
       </div>
     );
   }

@@ -17,6 +17,9 @@
 }
 
 body {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  transition: transform 1s ease-in-out;
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
