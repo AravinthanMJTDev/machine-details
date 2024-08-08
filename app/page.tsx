@@ -7,6 +7,7 @@ import Speedometer from "./meter/page";
 import Graph from "./Highcharts/Graph";
 import Link from "next/link";
 import DetailsPopUp from "./MachineTablePopUp/details";
+import LineGraph from "./LineChartHighChart/dataForLineGraph";
 
 export default function Home() {
   return (
@@ -18,6 +19,10 @@ export default function Home() {
       <Speedometer width={1000} height={1000} value={0.7} />
       <div className="w-full h-auto border m-5">
         <Graph width={800} height={800} />
+      </div>
+
+      <div className="w-full h-auto border m-5">
+        <LineGraph width={800} height={800} />
       </div>
     </div>
   );
