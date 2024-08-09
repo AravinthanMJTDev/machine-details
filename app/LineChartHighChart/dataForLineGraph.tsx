@@ -82,17 +82,19 @@ const LineGraph = ({ width, height }) => {
     };
   }, [handleClickOutside]);
 
+  console.log(Demand)
+
   return (
     <div
       ref={containerRef}
-      className={`w-full h-full overflow-hidden transition-transform duration-500 ease-in-out`}
+      className={`w-full h-full overflow-hidden transition-transform duration-500 ease-in-out `}
       onClick={() => setOnClick((prev) => !prev)}
       style={{
         transform: `scale(${onClick ? onClickScale : scale})`,
       }}
     >
       <div className="w-full h-auto mx-auto">
-        <div className="w-full h-auto transform border border-4 border-slate-500 p-3 mx-auto sm:flex sm:flex-col sm:justify-center sm:items-center sm:space-y-2">
+        <div className="w-full h-auto transform border border-4 border-slate-500 p-3 mx-auto sm:flex sm:flex-col sm:justify-center sm:items-center sm:space-y-2  ">
           <div
             className="w-full h-auto lg:flex lg:flex-row lg:justify-between lg:items-center sm:flex sm:flex-col sm:justify-center sm:items-center sm:space-y-2 md:flex md:flex-row md:justify-between md:items-center md:space-y-0 p-1 border border-1 border-slate-500"
             onClick={(e: React.MouseEvent) => {
